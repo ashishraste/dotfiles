@@ -1,0 +1,139 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set list          " Display unprintable characters f12 - switches
+set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ervandew/supertab'
+Plugin 'vim-scripts/genutils'
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+Plugin 'wombat'
+
+" github
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'morhetz/gruvbox'
+Plugin 'esneider/YUNOcommit.vim' 
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'mileszs/ack.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-git'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'shemerey/vim-peepopen'
+Plugin 'airblade/vim-rooter'
+Plugin 'airblade/vim-gitgutter'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" colorscheme selection
+"colorscheme wombat256mod
+
+syntax enable
+set background=dark
+colorscheme solarized
+
+" Enable the status bar
+set laststatus=2
+
+set number        " show line numbers
+set tabstop=2     " a tab is four spaces
+set shiftwidth=2  " number of spaces to use for autoindenting
+"set wrap
+set nowrap        " don't wrap lines
+set autoindent    " always set autoindenting on
+set copyindent    " copy the previous indentation on autoindenting
+set backspace=indent,eol,start  " allowing backspacing over everything in Insert mode
+set hlsearch      " highlight search terms
+set incsearch     " show search matches as you type
+set ignorecase    " ignore case when s(left out the so you can specify the path to open in the new tab).earching
+set nobackup      " no backup
+set noswapfile    " no swap file
+
+set history=1000      " remember more commands and search history
+set undolevels=1000   " use many much levels of undo
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set title             " change the terminal's title
+set visualbell        " don't beep
+set noerrorbells      " don't beep
+
+" Mappings 
+" <Esc><mappedKey> = command 
+" Tab nav
+map <C-Left> <Esc>:tabprev<CR>
+map <C-Right> <Esc>:tabnext<CR>
+map <C-n> <Esc>:tabnew
+
+nmap t :NERDTree<cr>
+
+"  Pane navigation map
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+" Work
+set expandtab
+set shiftwidth=2
+
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|CVS$\|\.svn$\|target$',
+  \ 'file': '\.class$\|\.so$',
+  \ }
+let g:ctrlp_extensions = ['dir', 'mixed']
+let g:vundle_default_git_proto = 'git'
+let g:YUNOcommit_after = 20
+let g:jedi#auto_initialization = 0
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+set mouse=a
+"map <ScrollWheelUp> <C-Y>
+"map <ScrollWheelDown> <C-E>
+
+" Doxygen plugin settings
+let g:DoxygenToolkit_briefTag_pre="@brief  "
+let g:DoxygenToolkit_paramTag_pre="@param  "
+let g:DoxygenToolkit_returnTag="@return  "
+let g:DoxygenToolkit_authorName="Ashish Raste"
+
+filetype plugin on
+let  g:C_UseTool_cmake    = 'yes'
+let  g:C_UseTool_doxygen = 'yes'
+
+let mapleader=","
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+set nocp
+
+source $VIMRUNTIME/mswin.vim
+behave mswin
