@@ -107,6 +107,15 @@ alias .5='cd ../../../../..'
 # ROS related
 source /opt/ros/indigo/setup.zsh
 source /home/ashish/ros_ws/devel/setup.zsh
+export ROSCONSOLE_CONFIG_FILE=/home/ashish/ros_ws/my_rosconsole.config
+alias tf='cd /var/tmp && rosrun tf view_frames && evince frames.pdf &'
+
+# G2O graph optimization framework
+export G2O_ROOT=/home/ashish/clones/g2o
+export G2O_BIN=${G2O_ROOT}/bin
+export G2O_LIB=${G2O_ROOT}/lib
+export LD_LIBRARY_PATH=${G2O_LIB}:${LD_LIBRARY_PATH}
+export PATH=${G2O_BIN}:${PATH}
 
 # Adding authentication keys onto a remote machine
 add_auth_key() {

@@ -37,6 +37,11 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'shemerey/vim-peepopen'
 Plugin 'airblade/vim-rooter'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'szw/vim-tags'
+Plugin 'vim-scripts/YankRing.vim'
+Plugin 'taketwo/vim-ros'
+Plugin 'SirVer/ultisnips'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
