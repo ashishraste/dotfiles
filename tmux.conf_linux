@@ -1,13 +1,12 @@
+# Following is the tmux configuration file for GNU/Linux systems having tmux versions >= 2.1
+
 # ` is an interesting key for a prefix
 unbind-key C-b
 set-option -g prefix `
 # set-option -g prefix C-a
 
 # Enable mouse control (clickable windows, panes, resizable panes)
-set -g mode-mouse on
-set -g mouse-select-window on
-set -g mouse-select-pane on
-set -g mouse-resize-pane on
+set -g mouse on
 
 # stop renaming windows automatically
 set-option -g allow-rename off
