@@ -86,6 +86,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Tmux tmp folder config
+export TMPDIR="/tmp/$LOGNAME"
+mkdir -p -m 700 "$TMPDIR"
+
 export TERM="xterm-256color"
 
 ## All aliases
@@ -105,7 +109,7 @@ alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
 
 # ROS related
-source /opt/ros/indigo/setup.zsh
+source /opt/ros/melodic/setup.zsh
 source /home/ashish/ros_ws/devel/setup.zsh
 export ROSCONSOLE_CONFIG_FILE=/home/ashish/ros_ws/my_rosconsole.config
 alias tf='cd /var/tmp && rosrun tf view_frames && evince frames.pdf &'
