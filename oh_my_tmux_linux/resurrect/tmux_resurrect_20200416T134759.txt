@@ -1,0 +1,19 @@
+pane	0	0	:ros	1	:*	1	:/home/freax	1	zsh	:
+pane	work	0	:zsh	1	:*	1	:/home/freax/uuv_exp_ws	0	python	:/usr/bin/python /opt/ros/melodic/bin/roslaunch uuv_gazebo_worlds ocean_waves.launch
+pane	work	0	:zsh	1	:*	2	:/home/freax/uuv_exp_ws	0	python	:/usr/bin/python /opt/ros/melodic/bin/roslaunch rexrov2_description upload_rexrov2.launch
+pane	work	0	:zsh	1	:*	3	:/home/freax/uuv_exp_ws	0	zsh	:
+pane	work	0	:zsh	1	:*	4	:/home/freax	0	zsh	:
+pane	work	0	:zsh	1	:*	5	:/home/freax	0	python	:/usr/bin/python /opt/ros/melodic/bin/roscore
+pane	work	0	:zsh	1	:*	6	:/home/freax/uuv_exp_ws/src/uuv_simulator	0	zsh	:
+pane	work	0	:zsh	1	:*	7	:/home/freax	0	zsh	:
+pane	work	0	:zsh	1	:*	8	:/home/freax	1	zsh	:
+pane	work	0	:zsh	1	:*	9	:/home/freax	0	zsh	:
+pane	work	1	:px4	0	:#-	1	:/home/freax	1	zsh	:
+pane	work	1	:px4	0	:#-	2	:/home/freax	0	zsh	:
+pane	work	1	:px4	0	:#-	3	:/home/freax/qgroundcontrol-custom/debug	0	sh	:/bin/sh ./qgroundcontrol-start.sh
+pane	work	1	:px4	0	:#-	4	:/home/freax	0	zsh	:
+pane	work	1	:px4	0	:#-	5	:/home/freax	0	zsh	:
+window	0	0	1	:*	cb9e,282x76,0,0,1
+window	work	0	1	:*	6994,282x76,0,0{113x76,0,0[113x13,0,0,23,113x18,0,14,28,113x16,0,33,29,113x12,0,50,30,113x13,0,63,26],168x76,114,0[168x16,114,0,25,168x19,114,17,31,168x17,114,37,27,168x21,114,55,32]}
+window	work	1	0	:#-	504e,282x76,0,0{141x76,0,0[141x34,0,0,24,141x20,0,35,35,141x20,0,56,36],140x76,142,0[140x38,142,0,33,140x37,142,39,34]}
+state	work	
