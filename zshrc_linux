@@ -2,9 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/ashish/.oh-my-zsh
+  export ZSH=/home/freax/.oh-my-zsh
 
-TMPDIR=`mktemp -d --tmpdir=/home/ashish 2>/dev/null`
+#TMPDIR=`mktemp -d --tmpdir=/home/freax 2>/dev/null`
+export TMPDIR="/tmp/$LOGNAME"
+mkdir -p -m 700 "$TMPDIR"
+
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -53,9 +56,9 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump git-extras git-flow git-flow-avh git git-hubflow git-remote-branch gitfast github gitignore git-prompt history history-substring-search perl pip pyenv python repo rsync screen sublime sudo systemd themes tmux tmuxinator torrent urltools vagrant web-search)
+plugins=(git-extras git-flow git-flow-avh git git-hubflow gitfast github gitignore git-prompt history history-substring-search perl pip pyenv python repo rsync screen sublime sudo systemd themes tmux tmuxinator torrent urltools vagrant web-search)
 
-source $ZSH/oh-my-zsh.sh
+source ~/.oh-my-zsh/oh-my-zsh.sh
 
 # User configuration
 
@@ -86,10 +89,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Tmux tmp folder config
-export TMPDIR="/tmp/$LOGNAME"
-mkdir -p -m 700 "$TMPDIR"
-
 export TERM="xterm-256color"
 
 ## All aliases
@@ -110,16 +109,18 @@ alias .5='cd ../../../../..'
 
 # ROS related
 source /opt/ros/melodic/setup.zsh
-source /home/ashish/ros_ws/devel/setup.zsh
-export ROSCONSOLE_CONFIG_FILE=/home/ashish/ros_ws/my_rosconsole.config
+source /home/freax/uuv_exp_ws/debug_devel/setup.zsh
 alias tf='cd /var/tmp && rosrun tf view_frames && evince frames.pdf &'
+alias usource='source ~/uuv_exp_ws/debug_devel/setup.zsh'
+alias gkill='pkill -f "gzserver"; pkill -f "gzclient"'
 
-# G2O graph optimization framework
-export G2O_ROOT=/home/ashish/clones/g2o
-export G2O_BIN=${G2O_ROOT}/bin
-export G2O_LIB=${G2O_ROOT}/lib
-export LD_LIBRARY_PATH=${G2O_LIB}:${LD_LIBRARY_PATH}
-export PATH=${G2O_BIN}:${PATH}
+# PyUAVCAN
+export PYUAVCAN_CLI_TRANSPORT="CAN(can.media.socketcan.SocketCANMedia('can0',8),42)"
+
+# Check PCAN device interface
+check_can() {
+  ip -details link show can0
+}
 
 # Adding authentication keys onto a remote machine
 add_auth_key() {
@@ -173,3 +174,17 @@ replace () {
   perl -i -p -e "s/$1/$2/g" $3
 }
 
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/freax/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+   eval "$__conda_setup"
+else
+   if [ -f "/home/freax/anaconda3/etc/profile.d/conda.sh" ]; then
+       . "/home/freax/anaconda3/etc/profile.d/conda.sh"
+   else
+       export PATH="/home/freax/anaconda3/bin:$PATH"
+   fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
