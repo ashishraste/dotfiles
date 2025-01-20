@@ -15,7 +15,7 @@ set -s escape-time 10                     # faster command sequences
 set -sg repeat-time 600                   # increase repeat timeout
 set -s focus-events on
 
-set -g prefix2 C-a                        # GNU-Screen compatible prefix
+set -g prefix2 C-b                        # GNU-Screen compatible prefix
 bind C-a send-prefix -2
 
 set -q -g status-utf8 on                  # expect UTF-8 (tmux < 2.2)
@@ -86,20 +86,24 @@ bind -r K resize-pane -U 2
 bind -r L resize-pane -R 2
 
 # window navigation
-unbind p
 unbind n
-# bind -r { previous-window # select previous window
-# bind -r } next-window     # select next window
-bind-key p prev
-bind-key n next
+unbind p
+bind -r '{' previous-window # select previous window
+bind -r '}' next-window     # select next window
 bind Tab last-window        # move to last active window
 
 # toggle mouse
 bind m run "cut -c3- ~/.tmux.conf | sh -s _toggle_mouse"
 
+
 # -- urlview -------------------------------------------------------------------
 
 bind U run "cut -c3- ~/.tmux.conf | sh -s _urlview #{pane_id}"
+
+
+# -- facebook pathpicker -------------------------------------------------------
+
+bind F run "cut -c3- ~/.tmux.conf | sh -s _fpp #{pane_id}"
 
 
 # -- list choice (tmux < 2.4) --------------------------------------------------
@@ -125,35 +129,6 @@ run -b 'tmux bind -ct vi-edit Escape cancel 2> /dev/null || true'
 
 # -- copy mode -----------------------------------------------------------------
 
-# bind Enter copy-mode # enter copy mode
-
-# run -b 'tmux bind -t vi-copy v begin-selection 2> /dev/null || true'
-# run -b 'tmux bind -T copy-mode-vi v send -X begin-selection 2> /dev/null || true'
-# run -b 'tmux bind -t vi-copy C-v rectangle-toggle 2> /dev/null || true'
-# run -b 'tmux bind -T copy-mode-vi C-v send -X rectangle-toggle 2> /dev/null || true'
-# run -b 'tmux bind -t vi-copy y copy-selection 2> /dev/null || true'
-# run -b 'tmux bind -T copy-mode-vi y send -X copy-selection-and-cancel 2> /dev/null || true'
-# run -b 'tmux bind -t vi-copy Escape cancel 2> /dev/null || true'
-# run -b 'tmux bind -T copy-mode-vi Escape send -X cancel 2> /dev/null || true'
-# run -b 'tmux bind -t vi-copy H start-of-line 2> /dev/null || true'
-# run -b 'tmux bind -T copy-mode-vi H send -X start-of-line 2> /dev/null || true'
-# run -b 'tmux bind -t vi-copy L end-of-line 2> /dev/null || true'
-# run -b 'tmux bind -T copy-mode-vi L send -X end-of-line 2> /dev/null || true'
-
-# # copy to macOS clipboard
-# if -b 'command -v pbcopy > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | pbcopy"'
-# if -b 'command -v reattach-to-user-namespace > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | reattach-to-user-namespace pbcopy"'
-# # copy to X11 clipboard
-# if -b 'command -v xsel > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xsel -i -b"'
-# if -b '! command -v xsel > /dev/null 2>&1 && command -v xclip > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xclip -i -selection clipboard >/dev/null 2>&1"'
-# # copy to Windows clipboard
-# if -b 'command -v clip.exe > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | clip.exe"'
-# if -b '[ -c /dev/clipboard ]' 'bind y run -b "tmux save-buffer - > /dev/clipboard"'
-
-
-# These bindings are for X Windows only. If you're using a different
-# window system you have to replace the `xsel` commands with something
-# else. See https://github.com/tmux/tmux/wiki/Clipboard#available-tools
 bind -T copy-mode    DoubleClick1Pane select-pane \; send -X select-word \; send -X copy-pipe-no-clear "xsel -i"
 bind -T copy-mode-vi DoubleClick1Pane select-pane \; send -X select-word \; send -X copy-pipe-no-clear "xsel -i"
 bind -n DoubleClick1Pane select-pane \; copy-mode -M \; send -X select-word \; send -X copy-pipe-no-clear "xsel -i"
@@ -165,7 +140,6 @@ bind -n MouseDown2Pane run "tmux set-buffer -b primary_selection \"$(xsel -o)\";
 set -g @yank_action 'copy-pipe-no-clear'
 bind -T copy-mode    C-c send -X copy-pipe-no-clear "xsel -i --clipboard"
 bind -T copy-mode-vi C-c send -X copy-pipe-no-clear "xsel -i --clipboard"
-
 
 # -- buffers -------------------------------------------------------------------
 
@@ -188,9 +162,10 @@ run -b '[ -z "#{window_active}" ] && [ -z "#{version}" ] && tmux set display-tim
 set-option -g allow-rename off
 
 # Plugins via TPM
+# Press Prefix-key + I for tpm to load the plugins.
 set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 
 run -b '~/.tmux/plugins/tpm/tpm'
