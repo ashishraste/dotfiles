@@ -110,8 +110,30 @@ alias rsource='source devel/setup.bash'
 # Rust
 source $HOME/.cargo/env
 
-alias vactivate='source venv/bin/activate'
+# Go
+export PATH=$PATH:/usr/local/go/bin
+
+alias vactivate='source .venv/bin/activate'
 alias schrony='sudo systemctl restart chrony.service'
+
+# ARM GCC toolchain
+export PATH=/opt/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH
+
+# PlotJuggler
+export PATH=/opt/plotjuggler/bin:$PATH
+
+# Mapbox
+export MAPBOX_ACCESS_TOKEN=pk.eyJ1IjoiYXNoaXNocmFzdGUiLCJhIjoiY2p1dWt6eWMzMGswYjQzbnlzZzRoNWpidyJ9.ry38f4aFhnFMrgzuQr9BdQ
+
+# GDAL tools
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+# Backseat
+# export PATH=$PATH:/home/freax/clones/c3ai-backseat/build/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/freax/clones/c3ai-backseat/build/lib
+
+# Qemu-Arm
+export PATH=$PATH:/home/freax/.local/xPacks/qemu-arm/xpack-qemu-arm-7.2.0-1/bin
 
 update_subs() {
   git submodule update --remote --recursive
@@ -205,9 +227,31 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-source /opt/ros/noetic/setup.bash
 
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "$HOME/.cargo/env"
+
+# C3AI Backseat Environment Variables
+function c3ai_dev_source_bs_env_vars() {
+    export CXX=/usr/bin/clang++
+    export C3AI_LIBRARY_PATH=/home/freax/clones/c3ai-backseat/build/lib
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$C3AI_LIBRARY_PATH
+    export C3AI_BACKSEAT=/home/freax/clones/c3ai-backseat
+    export C3AI_PATHS=$C3AI_BACKSEAT/build/local_build/bin:$C3AI_BACKSEAT/goby3/build/local_build/bin:$C3AI_BACKSEAT/goby3/scripts
+    export PATH=$C3AI_PATHS:$PATH
+}
+c3ai_dev_source_bs_env_vars
+
+# C3AI Developer Utility Functions
+if [ -f /home/freax/clones/c3ai-backseat/scripts/dev_helpers.sh ]; then
+    source /home/freax/clones/c3ai-backseat/scripts/dev_helpers.sh
+fi
+
+source /home/freax/.bash_completions/c3aipy.sh
+
+# export ROS_LOCALHOST_ONLY=1
+source /opt/ros/jazzy/setup.bash
+# export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
